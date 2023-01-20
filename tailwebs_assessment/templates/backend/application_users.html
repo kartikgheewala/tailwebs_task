@@ -1,0 +1,917 @@
+{% extends 'backend/main_admin/base.html' %}
+{% load static %}
+
+{% block title %}
+Application Users
+{% endblock %}
+
+{% block body %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Application Users</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/wev_admin/dashboard">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active">Application Users</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header"
+                             style="background-color: #007bff; color:white;">
+                            <h3 class="card-title">Users List</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+
+                            {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible"
+                                 role="alert">
+                                <strong>Message:</strong> {{ message }}
+                                <button type="button" class="close" data-dismiss="alert"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            {% endfor %}
+
+                            <!--                            <div class="form-row" style="justify-content: space-between;">-->
+                            <!--                                <div class="form-group m-2">-->
+                            <!--                                    <button class="btn btn-warning"-->
+                            <!--                                            onclick="Create_User()" title="Create User">-->
+                            <!--                                        <i class="fa fa-plus"></i> Create User-->
+                            <!--                                    </button>-->
+                            <!--                                    <a class="btn btn-secondary"-->
+                            <!--                                       href="/export_application_user_data_excel">-->
+                            <!--                                        <i class="fa fa-download"></i> Export Into Excel-->
+                            <!--                                    </a>-->
+                            <!--                                </div>-->
+
+                            <!--                            </div>-->
+                            <!--                            <br>-->
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped" id="example1">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Mobile Number</th>
+                                        <th>Age</th>
+                                        <th>Gender</th>
+                                        <th>Create Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody></tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Show User Information -->
+    <div class="modal fade" id="Model_Show_User">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Show User</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="form-row mb-3">
+                        <div class="form-group col-md-4">
+                            <label>Name</label>
+                            <input type="text" id="user_name" name="user_name" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Mobile No.</label>
+                            <input type="text" id="user_mobile_no" name="user_mobile_no" class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Email Address</label>
+                            <input type="text" id="user_email" name="user_email" class="form-control" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-row mb-3">
+                        <div class="form-group col-md-4">
+                            <label>Run Category</label>
+                            <input type="text" id="user_marathon_category" name="user_marathon_category"
+                                   class="form-control" readonly>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Age</label>
+                            <input type="text" id="user_age" name="user_age" class="form-control"
+                                   placeholder="-" readonly>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>County</label>
+                            <input type="text" id="user_county" name="user_dob" class="form-control"
+                                   placeholder="-" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-row mb-3">
+                        <div class="form-group col-md-4">
+                            <label>State</label>
+                            <input type="text" id="user_state" name="user_state" class="form-control"
+                                   placeholder="-" readonly>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>City</label>
+                            <input type="text" id="user_city" name="user_city" class="form-control"
+                                   placeholder="-" readonly>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Gender</label>
+                            <input type="text" id="user_gender" name="user_gender" class="form-control"
+                                   placeholder="-" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-row mb-3">
+                        <div class="form-group col-md-4">
+                            <label>Emergency Mobile</label>
+                            <input type="text" id="user_e_mobile" name="user_e_mobile" class="form-control"
+                                   placeholder="-" readonly>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Blood Group</label>
+                            <input type="text" id="user_blood_group" name="user_blood_group" class="form-control"
+                                   placeholder="-" readonly>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>T-Shirt Size</label>
+                            <input type="text" id="user_tshirt" name="user_tshirt" class="form-control"
+                                   placeholder="-" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-row mb-3">
+                        <div class="form-group col-md-4">
+                            <label>Medical History</label>
+                            <input type="text" id="user_medical_history" name="user_medical_history"
+                                   class="form-control" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger" data-dismiss="modal">Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Free User Information -->
+    <div class="modal fade" id="edit_free_user_information">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Update User Information</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form method="post" action="/edit_free_application_user" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        <!-- First row -->
+                        <div class="form-row mb-3">
+                            <div class="form-group col-md-4">
+                                <!-- Hidden User Id  -->
+                                <input type="hidden" id="update_free_user_id" name="update_free_user_id">
+                                <!-- Hidden User Id  -->
+                                <label>Username</label><strong style="color:red;">*</strong>
+                                <input type="text" id="update_free_user_name" name="update_free_user_name"
+                                       class="form-control" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Mobile Number</label>
+                                <input type="text" id="update_free_user_mobile_no" name="update_free_user_mobile_no"
+                                       class="form-control" placeholder="Enter mobile number" readonly>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Email Address</label>
+                                <input type="text" id="update_free_user_email_address"
+                                       name="update_free_user_email_address"
+                                       class="form-control" placeholder="Enter email address" readonly>
+                            </div>
+                        </div>
+                        <!-- Second row -->
+                        <div class="form-row mb-3">
+                            <div class="form-group col-md-4">
+                                <label>Age</label><strong style="color:red;">*</strong>
+                                <input type="number" id="update_free_user_age" name="update_free_user_age"
+                                       class="form-control" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Date of Birth</label>
+                                <input type="date" id="update_free_user_dob" name="update_free_user_dob"
+                                       class="form-control">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Gender</label><strong style="color:red;">*</strong>
+                                <select class="select2" data-placeholder="Select gender"
+                                        style="width: 100%;" name="update_free_user_gender"
+                                        id="update_free_user_gender"
+                                        required>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Third row -->
+                        <div class="form-row mb-3">
+                            <div class="form-group col-md-4">
+                                <label>Height</label><strong style="color:red;">*</strong>
+                                <input type="number" id="update_free_user_height" name="update_free_user_height"
+                                       class="form-control" step="any" min="0.0" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Weight</label><strong style="color:red;">*</strong>
+                                <input type="number" id="update_free_user_weight" name="update_free_user_weight"
+                                       class="form-control" step="any" min="0.0" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>How Active You?</label><strong style="color:red;">*</strong>
+                                <select class="select2" data-placeholder="Select how active you"
+                                        style="width: 100%;" name="update_free_how_active_are_you"
+                                        id="update_free_how_active_are_you"
+                                        required>
+                                    <option value="Sedentary">Sedentary</option>
+                                    <option value="Lightly active">Lightly active</option>
+                                    <option value="Moderately active">Moderately active</option>
+                                    <option value="Highly active">Highly active</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Fourth row -->
+                        <div class="form-row mb-3">
+                            <div class="form-group col-md-4">
+                                <label>Fitness Goal</label><strong style="color:red;">*</strong>
+                                <select class="select2" data-placeholder="Select fitness goal"
+                                        style="width: 100%;" name="update_free_fitness_goal"
+                                        id="update_free_fitness_goal"
+                                        required>
+                                    <option value="Weight loss">Weight loss</option>
+                                    <option value="Weight gain">Weight gain</option>
+                                    <option value="Muscles gain">Muscles gain</option>
+                                    <option value="Stay in shape">Stay in shape</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Target Weight</label>
+                                <input type="number" id="update_free_target_weight" name="update_free_target_weight"
+                                       class="form-control" step="any" min="0.0" placeholder="Enter target weight">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Difficulty Level</label>
+                                <select class="select2" data-placeholder="Select difficulty level"
+                                        style="width: 100%;" name="update_free_difficulty_level"
+                                        id="update_free_difficulty_level"
+                                        required>
+                                    <option value="" selected>Select difficulty level</option>
+                                    <option value="Hard">Hard</option>
+                                    <option value="Moderate">Moderate</option>
+                                    <option value="Easy">Easy</option>
+                                    <option value="Shape">Shape</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Fifth row -->
+                        <div class="form-row mb-3">
+                            <div class="form-group col-md-4">
+                                <label>Get Result</label>
+                                <input type="number" id="update_free_get_result" name="update_free_get_result"
+                                       class="form-control" placeholder="Enter get result" step="any" min="0.0">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Location</label>
+                                <input type="text" id="update_free_user_location_state"
+                                       name="update_free_user_location_state"
+                                       class="form-control" placeholder="Enter location" readonly>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Device Type</label>
+                                <input type="text" id="update_free_device_type" name="update_free_device_type"
+                                       class="form-control" readonly>
+                            </div>
+                        </div>
+                        <!-- Sixth row -->
+                        <div class="form-row mb-3">
+                            <div class="form-group col-md-4">
+                                <label>Signup Flow</label>
+                                <input type="text" id="update_free_signup_flow" name="update_free_signup_flow"
+                                       class="form-control" readonly>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Consume Free Trial</label>
+                                <input type="text" id="update_free_consume_free_trial"
+                                       name="update_free_consume_free_trial"
+                                       class="form-control" readonly>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Social Type</label>
+                                <input type="text" id="update_free_social_type" name="update_free_social_type"
+                                       class="form-control" readonly>
+                            </div>
+                        </div>
+                        <!-- Seventh row -->
+                        <div class="form-row mb-3">
+                            <div class="form-group col-md-4">
+                                <label>Height Format</label>
+                                <input type="text" id="update_free_height_format" name="update_free_height_format"
+                                       class="form-control" readonly>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Weight Format</label>
+                                <input type="text" id="update_free_weight_format" name="update_free_weight_format"
+                                       class="form-control" readonly>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Format Type</label>
+                                <input type="text" id="update_free_weight_format" name="update_free_weight_format"
+                                       class="form-control" readonly
+                                       value="Ft/In = 0, CM = 1 &nbsp;&nbsp; | &nbsp;&nbsp; KG=0, Lbs=1">
+                            </div>
+                        </div>
+                        <!-- Eighth row -->
+                        <div class="form-row mb-3">
+                            <div class="form-group col-md-4">
+                                <label>Campaign</label>
+                                <select class="select2" data-placeholder="Select subscription tag"
+                                        style="width: 100%;" name="update_free_user_sub_tag"
+                                        id="update_free_user_sub_tag"
+                                        required>
+                                    <option value="" selected>Select Campaign</option>
+                                    {% for i in Subscription_Name %}
+                                    <option value="{{ i.id }}">{{ i.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subscription Gift -->
+    <div class="modal fade" id="user_subscription_gift">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Subscription List</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="add_form_food_recipe" method="post" action="/add_subscription_gift"
+                      enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        <div class="form-row mb-6">
+                            <div class="form-group col-md-12">
+                                <input type="hidden" name="subscription_gift_user_id"
+                                       id="subscription_gift_user_id">
+                                <label for="user_name">Subscription Name</label><strong
+                                    style="color:red;">*</strong>
+                                <select class="select2"
+                                        data-placeholder="Select subscription name"
+                                        style="width: 100%;"
+                                        name="add_subscription_name" id="add_subscription_name"
+                                        required>
+                                    <option value="" selected disabled>Select subscription
+                                        name
+                                    </option>
+                                    {% for i in Subscription_Name %}
+                                    <option value="{{ i.id }}">{{ i.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="user_mobile_no">Subscription Type</label><strong
+                                    style="color:red;">*</strong>
+                                <select class="select2"
+                                        data-placeholder="Select subscription type"
+                                        style="width: 100%;"
+                                        name="add_subscription_type" id="add_subscription_type"
+                                        required>
+                                    <option value="" selected disabled>
+                                        Select subscription type
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="user_mobile_no">Subscription For?</label><strong
+                                    style="color:red;">*</strong>
+                                <select class="select2"
+                                        data-placeholder="Select subscription for"
+                                        style="width: 100%;"
+                                        name="subscription_for" id="subscription_for"
+                                        required>
+                                    <option value="" selected>
+                                        Select subscription for
+                                    </option>
+                                    <option value="Tester">
+                                        For Tester
+                                    </option>
+                                    <option value="Client">
+                                        For Client
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="user_mobile_no">Add Days</label><strong style="color:red;">*</strong>
+                                <input type="number" id="add_days" name="add_days"
+                                       class="form-control" placeholder="Add days i.e. 10, 30, 90" required
+                                       title="Enter integer value only.">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="user_mobile_no">Amount Received</label>
+                                <input type="number" id="add_days" name="amount_received"
+                                       class="form-control" placeholder="Enter amount i.e. 100, 500, 1000"
+                                       title="Enter integer value only.">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Apply Subscription
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create User -->
+    <div class="modal fade" id="create_user_modal">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Create User</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form method="post" action="/create_user" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        <!-- First row -->
+                        <div class="form-row mb-3">
+                            <div class="form-group col-md-4">
+                                <label>Username</label><strong style="color:red;">*</strong>
+                                <input type="text" id="create_user_name" name="create_user_name"
+                                       class="form-control" placeholder="Enter username" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Mobile Number</label><strong style="color:red;">*</strong>
+                                <input type="text" id="create_user_mobile_no" name="create_user_mobile_no"
+                                       class="form-control" placeholder="Enter mobile number" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Email Address</label>
+                                <input type="text" id="create_user_email_address"
+                                       name="create_user_email_address"
+                                       class="form-control" placeholder="Enter email address">
+                            </div>
+                        </div>
+                        <!-- Second row -->
+                        <div class="form-row mb-3">
+                            <div class="form-group col-md-4">
+                                <label>Age</label><strong style="color:red;">*</strong>
+                                <input type="number" id="create_user_age" name="create_user_age"
+                                       class="form-control" placeholder="Enter age" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Date of Birth</label>
+                                <input type="date" id="create_user_dob" name="create_user_dob"
+                                       class="form-control">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Gender</label><strong style="color:red;">*</strong>
+                                <select class="select2" data-placeholder="Select gender"
+                                        style="width: 100%;" name="create_user_gender"
+                                        id="create_user_gender"
+                                        required>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Third row -->
+                        <div class="form-row mb-3">
+                            <div class="form-group col-md-4">
+                                <label>Height</label><strong style="color:red;">*</strong>
+                                <input type="number" id="create_user_height" name="create_user_height"
+                                       class="form-control" step="any" min="0.0" placeholder="Enter height" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Weight</label><strong style="color:red;">*</strong>
+                                <input type="number" id="create_user_weight" name="create_user_weight"
+                                       class="form-control" step="any" min="0.0" placeholder="Enter height" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>How Active You?</label><strong style="color:red;">*</strong>
+                                <select class="select2" data-placeholder="Select how active you"
+                                        style="width: 100%;" name="create_how_active_are_you"
+                                        id="create_how_active_are_you"
+                                        required>
+                                    <option value="" selected>Select active you</option>
+                                    <option value="Sedentary">Sedentary</option>
+                                    <option value="Lightly active">Lightly active</option>
+                                    <option value="Moderately active">Moderately active</option>
+                                    <option value="Highly active">Highly active</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Fourth row -->
+                        <div class="form-row mb-3">
+                            <div class="form-group col-md-4">
+                                <label>Fitness Goal</label><strong style="color:red;">*</strong>
+                                <select class="select2" data-placeholder="Select fitness goal"
+                                        style="width: 100%;" name="create_fitness_goal"
+                                        id="create_fitness_goal"
+                                        required>
+                                    <option value="" selected>Select fitness goal</option>
+                                    <option value="Weight loss">Weight loss</option>
+                                    <option value="Weight gain">Weight gain</option>
+                                    <option value="Muscles gain">Muscles gain</option>
+                                    <option value="Stay in shape">Stay in shape</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Target Weight</label><strong style="color:red;">*</strong>
+                                <input type="number" id="create_target_weight" name="create_target_weight"
+                                       class="form-control" step="any" min="0.0" placeholder="Enter target weight"
+                                       required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Difficulty Level</label><strong style="color:red;">*</strong>
+                                <select class="select2" data-placeholder="Select difficulty level"
+                                        style="width: 100%;" name="create_difficulty_level"
+                                        id="create_difficulty_level"
+                                        required>
+                                    <option value="" selected>Select difficulty level</option>
+                                    <option value="Hard">Hard</option>
+                                    <option value="Moderate">Moderate</option>
+                                    <option value="Easy">Easy</option>
+                                    <option value="Shape">Shape</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Fifth row -->
+                        <div class="form-row mb-3">
+                            <div class="form-group col-md-4">
+                                <label>Get Result</label><strong style="color:red;">*</strong>
+                                <input type="number" id="create_get_result" name="create_get_result"
+                                       class="form-control" placeholder="Enter get result" step="any" min="0.0"
+                                       required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Location</label><strong style="color:red;">*</strong>
+                                <input type="text" id="create_user_location_state"
+                                       name="create_user_location_state"
+                                       class="form-control" placeholder="Enter location" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Device Type</label><strong style="color:red;">*</strong>
+                                <select class="select2" data-placeholder="Select device type"
+                                        style="width: 100%;" name="create_device_type"
+                                        id="create_device_type"
+                                        required>
+                                    <option value="" selected>Select device type</option>
+                                    <option value="android">android</option>
+                                    <option value="ios">ios</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Sixth row -->
+                        <div class="form-row mb-3">
+                            <div class="form-group col-md-4">
+                                <label>Height Format</label><strong style="color:red;">*</strong>
+                                <select class="select2" data-placeholder="Select height format"
+                                        style="width: 100%;" name="create_height_format"
+                                        id="create_height_format"
+                                        required>
+                                    <option value="" selected>Select height format</option>
+                                    <option value="0">Ft/In</option>
+                                    <option value="1">CM</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Weight Format</label><strong style="color:red;">*</strong>
+                                <select class="select2" data-placeholder="Select weight format"
+                                        style="width: 100%;" name="create_weight_format"
+                                        id="create_weight_format"
+                                        required>
+                                    <option value="" selected>Select weight format</option>
+                                    <option value="0">KG</option>
+                                    <option value="1">Lbs</option>
+                                </select>
+                            </div>
+                            <!-- Campaign -->
+                            <div class="form-group col-md-4">
+                                <label>Campaign</label><strong style="color:red;">*</strong>
+                                <select class="select2" data-placeholder="Select Campaign tag"
+                                        style="width: 100%;" name="create_sub_tag"
+                                        id="create_sub_tag"
+                                        required>
+                                    <option value="" selected>Select Campaign</option>
+                                    {% for i in Subscription_Name %}
+                                    <option value="{{ i.id }}">{{ i.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete -->
+    <div class="modal fade" id="Delete-Data">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" action="/delete_application_user" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="modal-header">
+                        <h4 class="modal-title">Delete <i class="fa fa-trash"></i></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete this admin user ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="number" id="delete_id" name="delete_id" hidden>
+                        <button type="submit" id="btn_close" class="btn btn-danger" data-dismiss="modal">Close
+                        </button>
+                        <button type="submit" id="btn_delete" class="btn btn-primary">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block jquery %}
+<!-- Datatable -->
+<script>
+    document.getElementById("application_users").className = "nav-link active";
+
+    $('.select2').select2();
+
+    // dataTable Ajax processing
+    $(document).ready(function () {
+        $('#example1').dataTable({
+            "ordering": true,
+            "PagingType": 'simple',
+            "processing": true,
+            "serverSide": true,
+            "autoWidth": false,
+            "searchDelay": 1000,
+            "order": [[6, "desc"]],
+            "ajax": "/web_admin/get_application_users_datatable",
+            "language": {
+                "emptyTable": "No data available in table!!"
+            },
+
+            "columns": [
+                {"data": "name"},
+                {"data": "email"},
+                {"data": "mobile_number"},
+                {"data": "age", render: check_age},
+                {"data": "gender", render: check_gender},
+                {"data": "updated_dt"},
+                {
+                    "data": "id",
+                    render: action_button,
+                    createdCell: function (td, cellData, rowData, row, col) {
+                        $(td).css('white-space', 'nowrap');
+                    }
+                },
+            ],
+
+        });
+    });
+
+    function check_age(data, type, row, meta) {
+        if (data === null) {
+            return '-';
+        } else {
+            return data;
+        }
+    }
+
+    function check_gender(data, type, row, meta) {
+        if (data === null) {
+            return '-';
+        } else {
+            return data;
+        }
+    }
+
+    function action_button(data, type, row, meta) {
+<!--        return '<center><button type="button" class="btn btn-info ml-2" onClick="Show_User(' + data + ')" title="User Information"> <i class="fa fa-eye"></i></button><button type="button" class="btn btn-primary ml-2" onClick="Update_User(' + data + ')" title="Update User"> <i class="fa fa-edit"></i></button><button type="button" class="btn btn-danger ml-2" onClick="Delete_User(' + data + ')" title="Delete user"> <i class="fas fa-trash"></i></button></center>';-->
+        return '<center><button type="button" class="btn btn-info ml-2" onClick="Show_User(' + data + ')" title="User Information"> <i class="fa fa-eye"></i></button></center>';
+    }
+
+</script>
+
+<!-- Show User Information -->
+<script>
+    function Show_User(user_id) {
+        $.ajax({
+            url: '/web_admin/get_register_users_info',
+            type: 'post',
+            async: false,
+            cache: false,
+            data: {
+                'user_id': user_id
+            },
+            success: function (data) {
+                if (data['status'] === true) {
+                    $('.premium').css("display", "block");
+                    $('#user_name').val(data['user_info']['name']);
+                    $('#user_email').val(data['user_info']['email']);
+                    $('#user_mobile_no').val(data['user_info']['mobile_number']);
+                    $('#user_marathon_category').val(data['user_info']['marathon_category__name']);
+                    $('#user_age').val(data['user_info']['age']);
+                    $('#user_county').val(data['user_info']['country']);
+                    $('#user_state').val(data['user_info']['state']);
+                    $('#user_city').val(data['user_info']['city']);
+                    $('#user_gender').val(data['user_info']['gender']);
+                    $('#user_e_mobile').val(data['user_info']['emergency_mobile_number']);
+                    $('#user_blood_group').val(data['user_info']['blood_group__name']);
+                    $('#user_tshirt').val(data['user_info']['tshirt__name']);
+                    $('#user_medical_history').val(data['user_info']['medical_history']);
+
+                } else {
+                    alert(data['message'])
+                }
+            },
+        });
+        $('#Model_Show_User').modal('show')
+    }
+</script>
+
+<!-- Edit Free User Information -->
+<script>
+        function Update_Free_User_Information(application_user_id) {
+            $.ajax({
+                url: '/get_app_users_info',
+                type: 'post',
+                async: false,
+                cache: false,
+                data: {
+                    'user_id': application_user_id
+                },
+                success: function (data) {
+                    if (data['status'] === true) {
+                        $('.premium').css("display", "block");
+                        $('#update_free_user_id').val(application_user_id);
+                        $('#update_free_user_name').val(data['user_info']['username']);
+                        $('#update_free_user_mobile_no').val(data['user_info']['mobile_number']);
+                        $('#update_free_user_email_address').val(data['user_info']['email_address']);
+                        $('#update_free_user_age').val(data['user_info']['age']);
+                        $('#update_free_user_dob').val(data['user_info']['dob']);
+                        $('#update_free_user_location_state').val(data['user_info']['location']);
+                        $('#update_free_user_gender').select2().val(data['user_info']['gender']).trigger('change');
+                        $('#update_free_user_height').val(data['user_info']['height']);
+                        $('#update_free_user_weight').val(data['user_info']['weight']);
+                        $('#update_free_how_active_are_you').select2().val(data['user_info']['you_active']).trigger('change');
+                        $('#update_free_fitness_goal').select2().val(data['user_info']['fitness_goal']).trigger('change');
+                        $('#update_free_target_weight').val(data['user_info']['target_weight']);
+                        $('#update_free_difficulty_level').select2().val(data['user_info']['difficulty_level']).trigger('change');
+                        $('#update_free_get_result').val(data['user_info']['get_result']);
+                        $('#update_free_device_type').val(data['user_info']['device_type']);
+                        $('#update_free_signup_flow').val(data['user_info']['signup_flow']);
+                        $('#update_free_consume_free_trial').val(data['user_info']['consume_free_trial']);
+                        $('#update_free_social_type').val(data['user_info']['social_type']);
+                        $('#update_free_height_format').val(data['user_info']['height_format']);
+                        $('#update_free_weight_format').val(data['user_info']['weight_format']);
+                        $('#update_free_user_sub_tag').select2().val(data['user_info']['subscription_tag_id']).trigger('change');
+                    } else {
+                        alert(data['message'])
+                    }
+                },
+            });
+            $('#edit_free_user_information').modal('show')
+        }
+
+
+
+
+
+
+
+</script>
+
+<!-- Subscription Gift -->
+<script>
+        function Subscription_Gift(user_id) {
+            $('#subscription_gift_user_id').val(user_id);
+            $('#user_subscription_gift').modal('show');
+        }
+
+        $(document).on('change', '#add_subscription_name', function () {
+            $.ajax({
+                url: '/get_subscription_type',
+                type: 'post',
+                data: {
+                    'id': $(this).val(),
+                },
+                async: true,
+                cache: false,
+                success: function (data) {
+                    $('#add_subscription_type').empty();
+                    for (var i = 0; i < data['data'].length; i++) {
+                        $('#add_subscription_type').append('<option value="' + data['data'][i]['id'] + '">' + data['data'][i]['name'] + '</option>');
+                    }
+                }
+            });
+        })
+
+
+
+
+
+
+
+</script>
+
+<!-- Create User -->
+<script>
+        function Create_User() {
+            $('#create_user_modal').modal('show');
+        }
+
+
+
+
+
+
+
+
+</script>
+
+<!-- Delete User -->
+<script>
+        function Delete(user_id) {
+            $('#delete_id').val(user_id);
+            $('#Delete-Data').modal('show');
+        }
+
+
+
+
+
+
+
+</script>
+{% endblock %}

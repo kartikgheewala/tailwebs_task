@@ -1,0 +1,96 @@
+{% extends 'backend/base.html' %}
+{% load static %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block body %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Dashboard</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+
+                <!-- Total users -->
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-primary">
+                        <div class="inner">
+                            {% if All_User %}
+                            <h3>{{ All_User }}</h3>
+                            {% else %}
+                            <h3>0</h3>
+                            {% endif %}
+                            <p>Admin Users</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Total subjects -->
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-secondary">
+                        <div class="inner">
+                            {% if All_Subject %}
+                            <h3>{{ All_Subject }}</h3>
+                            {% else %}
+                            <h3>0</h3>
+                            {% endif %}
+                            <p>Subjects</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+                        <a href="/subject" class="small-box-footer">More info <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Total students -->
+                <div class="col-lg-3 col-6">
+                    <div class="small-box bg-dark">
+                        <div class="inner">
+                            {% if All_Student %}
+                            <h3>{{ All_Student }}</h3>
+                            {% else %}
+                            <h3>0</h3>
+                            {% endif %}
+                            <p>Students</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+                        <a href="/student" class="small-box-footer">More info <i
+                                class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+<!-- /.content-wrapper -->
+{% endblock %}
+
+{% block jquery %}
+<script>
+		document.getElementById("dashboard").className = "nav-link active";
+</script>
+{% endblock %}

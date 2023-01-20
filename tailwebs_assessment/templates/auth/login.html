@@ -1,0 +1,43 @@
+{% extends 'auth/base.html' %}
+{% load static %}
+
+{% block title %}
+Log In
+{% endblock %}
+
+{% block body %}
+<div class="card">
+    <div class="card-body login-card-body">
+        <p class="login-box-msg">Sign in to start your session</p>
+
+        {% for msg in messages %}
+        <p class="login-box-msg" style="color: red">{{ msg }}</p>
+        {% endfor %}
+
+        <form action="/" method="post">{% csrf_token %}
+            <div class="input-group mb-3">
+                <input type="text" name="username" class="form-control" placeholder="Enter username" required>
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-user"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <input type="password" name="password" class="form-control" placeholder="Enter password" required>
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-key"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-8"></div>
+                <div class="col-4">
+                    <button type="submit" class="btn btn-primary btn-block">Next</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
