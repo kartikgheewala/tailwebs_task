@@ -1,0 +1,58 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="7">
+            <item index="0" class="java.lang.String" itemvalue="nobr" />
+            <item index="1" class="java.lang.String" itemvalue="noembed" />
+            <item index="2" class="java.lang.String" itemvalue="comment" />
+            <item index="3" class="java.lang.String" itemvalue="noscript" />
+            <item index="4" class="java.lang.String" itemvalue="embed" />
+            <item index="5" class="java.lang.String" itemvalue="script" />
+            <item index="6" class="java.lang.String" itemvalue="li" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="N802" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="sub_admin_app.models.Ingredients.*" />
+          <option value="backend.models.Order.*" />
+          <option value="razorpay.client.Client.*" />
+          <option value="backend.models.RegisterUser.*" />
+          <option value="fitness_app.models.Users_Subscription.*" />
+          <option value="saloon_project.application.models.Saloon.*" />
+          <option value="saloon_project.application.models.Service.*" />
+          <option value="backend.models.MarathonCategory.*" />
+          <option value="backend.models.TypeOfRegUser.*" />
+          <option value="backend.models.BloodGroup.*" />
+          <option value="backend.models.TShirt.*" />
+          <option value="backend.models.MedicalCondition.*" />
+          <option value="fitness_app.models.Burn_Tracking.*" />
+          <option value="fitness_app.models.AM_Walking.*" />
+          <option value="fitness_app.models.AM_Running.*" />
+          <option value="fitness_app.models.AM_Cycling.objects" />
+          <option value="fitness_app.models.AM_Swimming.*" />
+          <option value="om_app.models.Particular_Day_Wise_Diet_Plan_User.*" />
+          <option value="rest_framework.authtoken.models.Token.*" />
+          <option value="tailwebs_assessment.student.models.Subject.*" />
+          <option value="tailwebs_assessment.student.models.Student.*" />
+          <option value="student.models.Subject.*" />
+          <option value="student.models.Student.*" />
+          <option value="student.views.student.*" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
