@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import pre_save
+from django.db.models import Sum
 from authentication.models import (
     User
 )
@@ -34,6 +36,7 @@ class Student(models.Model):
         User, on_delete=models.CASCADE, null=True
     )
     marks = models.PositiveIntegerField(default=0)
+    total_marks = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
